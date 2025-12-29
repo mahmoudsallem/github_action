@@ -1,0 +1,14 @@
+name : Firest workflow 
+
+on:
+  push:
+    branches: 
+      - main
+
+jobs: 
+  example-job:
+    runs-on: ubuntu-latest
+
+    steps: 
+      - nmae: print a welcome massage 
+        run: echo "Hello from mahmoud machine"
