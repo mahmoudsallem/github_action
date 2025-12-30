@@ -1,12 +1,18 @@
 on: 
   workflow_dispatch:
-    
-jobs:
-
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - staging
+          - production
+          
+jobs: 
   deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
-        run: echo "manual deplyment triggered"
-        
+        echo: "deply the application to ${{ github.event.inputs.environment }} environment"
