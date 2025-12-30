@@ -1,21 +1,30 @@
 on:
   workflow_dispatch:
-    inputs:
-      environment:
-        description: 'Deployment environment'
-        required: true
-        default: 'staging'
-        type: choice
-        options:
-          - staging
-          - production
 
 jobs:
-  deploy:
+  job1:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        echo: "processing job1 ${{ github.job }}"
 
-      - name: Deploy application
-        run: echo "deploy the application to ${{ inputs.environment }} environment"
+  job2:
+    runs-on: ubuntu-latest
+    steps:
+    needs: job1
+      - name: Checkout repository
+        echo: "processing job2 ${{ github.job }}"
+
+  job3:
+    runs-on: ubuntu-latest
+    needs: job2
+    steps:
+      - name: Checkout repository
+        echo: "processing job3 ${{ github.job }}"
+
+  job4:
+    runs-on: ubuntu-latest
+    needs: [job3, job2]
+    steps:
+      - name: Checkout repository
+        echo: "processing job4 ${{ github.job }}"
