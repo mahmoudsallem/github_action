@@ -1,4 +1,4 @@
-on: 
+on:
   workflow_dispatch:
     inputs:
       environment:
@@ -9,27 +9,13 @@ on:
         options:
           - staging
           - production
-          
-jobs: 
+
+jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        echo: "deply the application to ${{ github.event.inputs.environment }} environment"on: 
-  workflow_dispatch:
-    inputs:
-      environment:
-        description: 'Deployment environment'
-        required: true
-        default: 'staging'
-        type: choice
-        options:
-          - staging
-          - production
-          
-jobs: 
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        echo: "deply the application to ${{ github.event.inputs.environment }} environment"
+        uses: actions/checkout@v4
+
+      - name: Deploy application
+        run: echo "deploy the application to ${{ inputs.environment }} environment"
